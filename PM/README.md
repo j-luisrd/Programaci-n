@@ -1,2 +1,2 @@
-# Modelado Matemático
-Carpeta con archivos sobre la asignatura Modelado Matemático
+# Programación Multiobjetivo
+Carpeta con archivos sobre la asignatura Programación Multiobjetivo
