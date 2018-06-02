@@ -55,21 +55,13 @@ def Fun(delta):
     #Calculos para alfa
     def Optimize(arr,brr,i):
         p0 = [np.log10(arr)[i],np.log10(brr)[i]]
-        errfunc         = lambda p: np.ravel(p[0]*np.log10(arr[i+1:])+p[1]-np.log10(brr[i+1:]))
+        errfunc         = lambda p: np.ravel(p[0]*np.log10(arr[1:i+2])+p[1]-np.log10(brr[1:i+2]))
         fitparams       = scipy.optimize.leastsq(errfunc,p0,full_output=1)[0]
         fitparams       = list(fitparams)
         return fitparams[0],fitparams[1]
-    
-    if delta==0.05:
-        j=5
-    if delta==0.1:
-        j=3
-    if delta==0.2:
-        j=2
-    if delta==0.4:
-        j=1        
-    m1,b1=Optimize(rad,rho.value,j)
-    m2,b2=Optimize(rad,rho1.value,j)
+    p=np.argmax(rho1.value)
+    m1,b1=Optimize(rad,rho.value,p)
+    m2,b2=Optimize(rad,rho1.value,p)
     
     
     #Plots
@@ -130,7 +122,7 @@ def Fun(delta):
     Plot(c,spine_b,spine_l,Title,xlabel,ylabel,xmin,xmax,ymin,ymax,X,Y,Leg,Leg_loc,scatter)
     Y,Leg=np.log10(rho1.value),'Densidad experimental'
     Plot(c,spine_b,spine_l,Title,xlabel,ylabel,xmin,xmax,ymin,ymax,X,Y,Leg,Leg_loc,scatter)
-    X,Y,Leg,scatter=np.log10(rad)[3:],m1*X[3:]+b1,'Ajuste teórico',0
+    X,Y,Leg,scatter=np.log10(rad)[1:],m1*np.log10(rad)[1:]+b1,'Ajuste teórico',0
     Plot(c,spine_b,spine_l,Title,xlabel,ylabel,xmin,xmax,ymin,ymax,X,Y,Leg,Leg_loc,scatter)
     Y,Leg,scatter=m2*X+b2,'Ajuste experimental',0
     Plot(c,spine_b,spine_l,Title,xlabel,ylabel,xmin,xmax,ymin,ymax,X,Y,Leg,Leg_loc,scatter)    
