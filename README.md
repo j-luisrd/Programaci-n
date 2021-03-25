@@ -1,2 +1,2 @@
 # Programación
-Para Python online
+Para ejercicios de programación
